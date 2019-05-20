@@ -143,9 +143,12 @@ int main(int argc, char **argv) {
 		file = argv[1];
 	}
 	buffer = FREAD(file,&file_size);
-	lower_string(buffer);
 	printf("%s", buffer);
 	printf("\n\n --Done-- \n\n");
+	lower_string(buffer);
+
+	printf("%s", buffer);
+	printf("\n\n --Small case Done-- \n\n");
     printf("--Tokens-- \n\n");
 
 	TOKEN tokens[128];
