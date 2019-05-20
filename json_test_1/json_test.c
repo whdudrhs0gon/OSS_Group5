@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 typedef enum {
 	UNDEFIEND = 0,
 	OBJECT = 1,
@@ -122,7 +121,18 @@ void free_tokens(TOKEN *tokens, int token_size) {
 	}
 }
 
-
+void lower_string(char s[])
+{
+	int c = 0;
+    while(s[c] != '\0')
+    {
+        if (s[c] >= 65 && s[c] <= 90)
+        {
+            s[c] = s[c] + 32;
+        }
+        c++;
+    }
+}
 
 int main(int argc, char **argv) {
 	char* buffer;
@@ -132,9 +142,8 @@ int main(int argc, char **argv) {
 	if (argc >= 1) {
 		file = argv[1];
 	}
-
-	buffer = FREAD(file, &file_size);
-
+	buffer = FREAD(file,&file_size);
+	lower_string(buffer);
 	printf("%s", buffer);
 	printf("\n\n --Done-- \n\n");
     printf("--Tokens-- \n\n");
@@ -149,7 +158,6 @@ int main(int argc, char **argv) {
 	for (int i = 0; i < tokens_size; i++) {
 		printf("[ %d] %s (%d~%d, %s)\n",i+1, tokens[i].string, tokens[i].start, tokens[i].end, type[tokens[i].type]);
 	}
-
 
 	free_tokens(tokens, tokens_size);
 	free(buffer);
