@@ -111,7 +111,7 @@ void JSON_parse(char* buffer, long file_size, int* token_size, TOKEN *tokens) {
 			{
 				char* begin = buffer + i;
 				tokens[tokenIndex].start = begin - buffer;
-				char* end = strchr(begin, ']');
+				char* end = strchr(begin, 'e');
 				tokens[tokenIndex].end = end - buffer + 1;
 				int stringLength = end - begin + 1;
 
@@ -128,7 +128,7 @@ void JSON_parse(char* buffer, long file_size, int* token_size, TOKEN *tokens) {
 			{
 				char* begin = buffer + i;
 				tokens[tokenIndex].start = begin - buffer;
-				char* end = strchr(begin, ']');
+				char* end = strchr(begin, 'e');
 				tokens[tokenIndex].end = end - buffer + 1;
 				int stringLength = end - begin + 1;
 
