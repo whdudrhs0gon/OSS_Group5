@@ -98,7 +98,6 @@ void JSON_parse(char* buffer, long file_size, int* token_size, TOKEN *tokens) {
 				tokens[tokenIndex].type = STRING;
 				tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
 				memset(tokens[tokenIndex].string, 0, stringLength + 1);
-
 				memcpy(tokens[tokenIndex].string, begin, stringLength);
 
 				tokenIndex++;
@@ -108,6 +107,39 @@ void JSON_parse(char* buffer, long file_size, int* token_size, TOKEN *tokens) {
 			}
 			break;
 
+			case 't':
+			{
+				char* begin = buffer + i;
+				tokens[tokenIndex].start = begin - buffer;
+				char* end = strchr(begin, ']');
+				tokens[tokenIndex].end = end - buffer + 1;
+				int stringLength = end - begin + 1;
+
+				tokens[tokenIndex].type = PRIMITIVE;
+				tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
+				memset(tokens[tokenIndex].string, 0, stringLength + 1);
+				memcpy(tokens[tokenIndex].string, begin, stringLength);
+				tokenIndex++;
+				*token_size = tokenIndex;
+			}
+			break;
+
+			case 'f':
+			{
+				char* begin = buffer + i;
+				tokens[tokenIndex].start = begin - buffer;
+				char* end = strchr(begin, ']');
+				tokens[tokenIndex].end = end - buffer + 1;
+				int stringLength = end - begin + 1;
+
+				tokens[tokenIndex].type = PRIMITIVE;
+				tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
+				memset(tokens[tokenIndex].string, 0, stringLength + 1);
+				memcpy(tokens[tokenIndex].string, begin, stringLength);
+				tokenIndex++;
+				*token_size = tokenIndex;
+			}
+			break;
 		}
 	}
 
