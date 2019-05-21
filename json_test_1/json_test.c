@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define TRUE 1
+#define FALSE 0
+
 typedef enum {
 	UNDEFIEND = 0,
 	OBJECT = 1,
@@ -186,14 +189,98 @@ void lower_string(char s[])
     }
 }
 
+void Find_TokenSize(char* buffer, int tokens_size, TOKEN *tokens) {
+	int size = 0; // token[i].size
+	int key = TRUE;
+
+	for (int i = 0; i < tokens_size; i++) {
+		switch (tokens[i].string[0]) {
+		case '{':
+		{
+			int end = tokens[i].end;
+
+			while (1) {
+				int start = tokens[++i].start;
+
+				if (start > end || i >= tokens_size) break;
+				size++;
+			}
+			i = i - size - 1;
+			tokens[i].size = size / 2;
+			size = 0;
+		}
+		break;
+
+		case '[':
+		{
+			int end = tokens[i].end;
+			int temp_size = 0;
+
+			while (1) {
+				int start = tokens[++i].start;
+
+				if (i >= tokens_size) {
+					break;
+				}
+
+				if (tokens[i].string[0] == '{') {
+					int temp_end = tokens[i].end;
+
+					while (1) {
+						int temp_start = tokens[++i].start;
+
+						if (temp_start > temp_end || i >= tokens_size) break;
+						temp_size++;
+					}
+					i = i - 1;
+				}
+
+				if (start > end || i >= tokens_size) {
+					break;
+				}
+				size++;
+			}
+			i = i - temp_size - size - 1;
+			tokens[i].size = size;
+			size = 0;
+		}
+		break;
+
+		default:
+		{
+			if (buffer[tokens[i].end + 1] == ':') {
+				key = TRUE;
+			}
+			else {
+				key = FALSE;
+			}
+
+			if (key == TRUE) {
+				tokens[i].size = 1;
+			}
+			else {
+				tokens[i].size = 0;
+			}
+		}
+		break;
+		}
+	}
+}
+
 int main(int argc, char **argv) {
 	char* buffer;
 	long file_size;
 	int tokens_size = 0;
 	char* file;
+	
+	/*
 	if (argc >= 1) {
 		file = argv[1];
 	}
+	*/
+	file = "library.json";
+
+
 	buffer = FREAD(file,&file_size);
 	printf("%s", buffer);
 	printf("\n\n --Done-- \n\n");
@@ -205,13 +292,11 @@ int main(int argc, char **argv) {
 
 	TOKEN tokens[128];
 	JSON_parse(buffer, file_size, &tokens_size, tokens);
-
-
-
-
+	
+	Find_TokenSize(buffer, tokens_size, tokens);
 
 	for (int i = 0; i < tokens_size; i++) {
-		printf("[ %d] %s (%d~%d, %s)\n",i+1, tokens[i].string, tokens[i].start, tokens[i].end, type[tokens[i].type]);
+		printf("[%d] %s (size=%d, %d~%d, %s)\n",i+1, tokens[i].string, tokens[i].size, tokens[i].start, tokens[i].end, type[tokens[i].type]);
 	}
 
 	free_tokens(tokens, tokens_size);
