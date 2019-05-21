@@ -273,12 +273,12 @@ int main(int argc, char **argv) {
 	int tokens_size = 0;
 	char* file;
 	
-	/*
+	
 	if (argc >= 1) {
 		file = argv[1];
 	}
-	*/
-	file = "library.json";
+	
+	//file = "library.json";
 
 
 	buffer = FREAD(file,&file_size);
