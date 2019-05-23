@@ -1,8 +1,8 @@
 {
-    "First name" : "yerim",
-    "Last name" : "Ha",
-    "student_ID" : "21900779",
-    "age" : "20",
-    "major" : "Global leadership",
-    "RC" : "Bethel"
+    "First name": "yerim",
+    "Last name": "Ha",
+    "Student_ID": 21900779,
+    "Age": 20,
+    "Major": "Global LeaderShip",
+    "RC": "Bethel"
 }

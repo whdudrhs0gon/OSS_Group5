@@ -1,8 +1,8 @@
 {
-   "first name" : "harin",
-   "last name" : "Yang",
-   "student_ID" : "21900554",
-   "age" : 20,
-   "major" : "Global LeaderShip",
-   "RC" : "Creation"
+   "First name": "harin",
+   "Last name": "Yang",
+   "Student_ID": 21900554,
+   "Age": 20,
+   "Major": "Global LeaderShip",
+   "RC": "Creation"
 }

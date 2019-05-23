@@ -1,8 +1,8 @@
 {
-   "first name" : "dain",
-   "last name" : "Lee",
-   "student_ID" : "21800450",
-   "age" : 22,
-   "major" : "C&C Design",
-   "RC" : "Creation"
+   "First name": "dain",
+   "Last name": "Lee",
+   "Student_ID": 21800450,
+   "Age": 22,
+   "Major": "C&C Design",
+   "RC": "Creation"
 }

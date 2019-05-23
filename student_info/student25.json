@@ -1,8 +1,8 @@
 {
-   "first name" : "sieun",
-   "last name" : "Song",
-   "student_ID" : "21800425",
-   "age" : 21,
-   "major" : "C&C Design",
-   "RC" : "Vision"
+   "First name": "sieun",
+   "Last name": "Song",
+   "Student_ID": 21800425,
+   "Age": 21,
+   "Major": "C&C Design",
+   "RC": "Vision"
 }

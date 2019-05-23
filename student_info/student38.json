@@ -1,8 +1,8 @@
 {
-  "first name" : "David",
-  "last name" : "Ross",
-  "student ID" : "21500212",
-  "age" : "23",
-  "major" : "Artificial Intelligence",
-  "RC" : "Happiness"
+  "First name": "David",
+  "Last name": "Ross",
+  "Student_ID": 21500212,
+  "Age": 23,
+  "Major": "Artificial Intelligence",
+  "RC": "Happiness"
 }

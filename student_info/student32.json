@@ -1,8 +1,8 @@
 {
-  "first name" : "Sera",
-  "last name" : "Song",
-  "student ID" : "21300382",
-  "age" : "26",
-  "major" : "design",
-  "RC" : "Happiness"
+  "First name": "Sera",
+  "Last name": "Song",
+  "Student_ID": 21300382,
+  "Age": 26,
+  "Major": "C&C Design",
+  "RC": "Happiness"
 }

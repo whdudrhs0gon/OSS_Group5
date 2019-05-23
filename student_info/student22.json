@@ -1,8 +1,8 @@
 {
-   "first name" : "hyunjin",
-   "last name" : "Hang",
-   "student_ID" : "21900822",
-   "age" : 20,
-   "major" : "Global LeaderShip",
-   "RC" : "Bethel"
+   "First name": "hyunjin",
+   "Last name": "Hang",
+   "Student_ID": 21900822,
+   "Age": 20,
+   "Major": "Global LeaderShip",
+   "RC": "Bethel"
 }

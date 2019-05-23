@@ -1,8 +1,8 @@
 {
-   "first name" : "hyunjung",
-   "last name" : "Lee",
-   "student_ID" : "21600215",
-   "age" : 24,
-   "major" : "biology",
-   "RC" : "Grace"
+   "First name": "hyunjung",
+   "Last name": "Lee",
+   "Student_ID": 21600215,
+   "Age": 24,
+   "Major": "Biology",
+   "RC": "Grace"
 }

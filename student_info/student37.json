@@ -1,8 +1,8 @@
 {
-  "first name" : "Chloe",
-  "last name" : "Jung",
-  "student ID" : "21900663",
-  "age" : "20",
-  "major" : "GLS",
-  "RC" : "Bethel"
+  "First name": "Chloe",
+  "Last name": "Jung",
+  "Student_ID": 21900663,
+  "Age": 20,
+  "Major": "Global LeaderShip",
+  "RC": "Bethel"
 }

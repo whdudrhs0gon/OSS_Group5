@@ -1,8 +1,8 @@
 {
-   "first name" : "gibem",
-   "last name" : "Ryu",
-   "student_ID" : "21400352",
-   "age" : 25,
-   "major" : "Electronic Engineering",
-   "RC" : "Vision"
+   "First name": "gibem",
+   "Last name": "Ryu",
+   "Student_ID": 21400352,
+   "Age": 25,
+   "Major": "Electronic Engineering",
+   "RC": "Vision"
 }

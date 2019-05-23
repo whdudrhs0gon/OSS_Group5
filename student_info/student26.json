@@ -1,8 +1,8 @@
 {
-   "first name" : "haeryung",
-   "last name" : "Park",
-   "student_ID" : "21700542",
-   "age" : 22,
-   "major" : "Law",
-   "RC" : "Bethel"
+   "First name": "haeryung",
+   "Last name": "Park",
+   "Student_ID": 21700542,
+   "Age": 22,
+   "Major": "Law",
+   "RC": "Bethel"
 }

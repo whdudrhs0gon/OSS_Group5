@@ -1,8 +1,8 @@
 {
-   "first name" : "kungduk",
-   "last name" : "Yoo",
-   "student_ID" : "21600125",
-   "age" : "23",
-   "major" : "Computer Science",
-   "RC" : "Bethel"
+   "First name": "kungduk",
+   "Last name": "Yoo",
+   "Student_ID": 21600125,
+   "Age": 23,
+   "Major": "Computer Science",
+   "RC": "Bethel"
 }

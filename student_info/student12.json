@@ -1,8 +1,8 @@
 {
-   "first name" : "suckjin",
-   "last name" : "Kang",
-   "student_ID" : "21500850",
-   "age" : 24,
-   "major" : "architecture",
-   "RC" : "Bethel"
+   "First name": "suckjin",
+   "Last name": "Kang",
+   "Student_ID": 21500850,
+   "Age": 24,
+   "Major": "Architecture",
+   "RC": "Bethel"
 }

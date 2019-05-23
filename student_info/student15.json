@@ -1,8 +1,8 @@
 {
-   "first name" : "byungjun",
-   "last name" : "Park",
-   "student_ID" : "21700950",
-   "age" : 22,
-   "major" : "World history",
-   "RC" : "Happiness"
+   "First name": "byungjun",
+   "Last name": "Park",
+   "Student_ID": 21700950,
+   "Age": 22,
+   "Major": "World history",
+   "RC": "Happiness"
 }

@@ -1,8 +1,8 @@
 {
-   "first name" : "taegun",
-   "last name" : "Kim",
-   "student_ID" :"21400570",
-   "age" : 25,
-   "major" : "Computer Science",
-   "RC" : "Vision"
+   "First name": "taegun",
+   "Last name": "Kim",
+   "Student_ID": 21400570,
+   "Age": 25,
+   "Major": "Computer Science",
+   "RC": "Vision"
 }

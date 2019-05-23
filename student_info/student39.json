@@ -1,8 +1,8 @@
 {
-  "first name" : "Alpha",
-  "last name" : "Go",
-  "student ID" : "21400008",
-  "age" : "25",
-  "major" : "Korean law",
-  "RC" : "Vision"
+  "First name": "Alpha",
+  "Last name": "Go",
+  "Student_ID": 21400008,
+  "Age": 25,
+  "Major": "Law",
+  "RC": "Vision"
 }

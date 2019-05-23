@@ -1,8 +1,8 @@
 {
-  "first name" : "Catherine",
-  "last name" : "Park",
-  "student ID" : "21800001",
-  "age" : "21",
-  "major" : "architecture",
-  "RC" : "Vision"
+  "First name": "Catherine",
+  "Last name": "Park",
+  "Student_ID": 21800001,
+  "Age": 21,
+  "Major": "Architecture",
+  "RC": "Vision"
 }

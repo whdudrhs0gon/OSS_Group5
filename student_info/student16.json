@@ -1,8 +1,8 @@
 {
-   "first name" : "sunghan",
-   "last name" : "Bae",
-   "student_ID" : "21900710",
-   "age" : 20,
-   "major" : "Global LeaderShip",
-   "RC" : "Rodem"
+   "First name": "sunghan",
+   "Last name": "Bae",
+   "Student_ID": 21900710,
+   "Age": 20,
+   "Major": "Global LeaderShip",
+   "RC": "Rodem"
 }

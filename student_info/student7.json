@@ -1,8 +1,8 @@
 {
-    "First name" : "seungjun",
-    "Last name" : "Baek",
-    "student_ID" : "21900346",
-    "age" : "20",
-    "major" : "Global leadership",
-    "RC" : "Bethel"
+    "First name": "seungjun",
+    "Last name": "Baek",
+    "Student_ID": 21900346,
+    "Age": 20,
+    "Major": "Global LeaderShip",
+    "RC": "Bethel"
 }

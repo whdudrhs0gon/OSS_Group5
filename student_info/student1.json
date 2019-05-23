@@ -1,8 +1,8 @@
 {
-    "First name" : "heeju",
-    "Last name" : "Shin",
-    "student_ID" : "21800412",
-    "age" : "21",
-    "major" : "computer science",
-    "RC" : "Bethel"
+    "First name": "heeju",
+    "Last name": "Shin",
+    "Student_ID": 21800412,
+    "Age": 21,
+    "Major": "Computer Science",
+    "RC": "Bethel"
 }

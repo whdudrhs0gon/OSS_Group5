@@ -1,8 +1,8 @@
 {
-   "first name" : "yeji",
-   "last name" : "Lee",
-   "student_ID" : "21600324",
-   "age" : "25",
-   "major" : "ICT",
-   "RC" : "Grace"
+   "First name": "yeji",
+   "Last name": "Lee",
+   "Student_ID": 21600324,
+   "Age": 25,
+   "Major": "ICT",
+   "RC": "Grace"
 }

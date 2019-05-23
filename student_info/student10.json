@@ -1,8 +1,8 @@
 {
-    "First name" : "dongha",
-    "Last name" : "Kim",
-    "student_ID" : "21900084",
-    "age" : "20",
-    "major" : "computer science",
-    "RC" : "Bethel"
+    "First name": "dongha",
+    "Last name": "Kim",
+    "Student_ID": 21900084,
+    "Age": 20,
+    "Major": "Computer Science",
+    "RC": "Bethel"
 }

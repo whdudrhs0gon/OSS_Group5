@@ -1,8 +1,8 @@
 {
-    "First name" : "somin",
-    "Last name" : "Kim",
-    "student_ID" : "21900122",
-    "age" : "20",
-    "major" : "Global leadership",
-    "RC" : "Bethel"
+    "First name": "somin",
+    "Last name": "Kim",
+    "Student_ID" : 21900122,
+    "Age": 20,
+    "Major": "Global LeaderShip",
+    "RC": "Bethel"
 }

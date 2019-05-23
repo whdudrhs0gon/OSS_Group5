@@ -1,8 +1,8 @@
 {
-   "first name" : "hyunhun",
-   "last name" : "Song",
-   "student_ID" : "21300109",
-   "age" : 26,
-   "major" : "biology",
-   "RC" : "Happiness"
+   "First name": "hyunhun",
+   "Last name": "Song",
+   "Student_ID": 21300109,
+   "Age": 26,
+   "Major": "Biology",
+   "RC": "Happiness"
 }

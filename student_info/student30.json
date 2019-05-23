@@ -1,8 +1,8 @@
 {
-   "first name" : "younghyun",
-   "last name" : "Kim",
-   "student_ID" : "21800142",
-   "age" : 21,
-   "major" : "Communication Arts",
-   "RC" : "Creation"
+   "First name": "younghyun",
+   "Last name": "Kim",
+   "Student_ID": 21800142,
+   "Age": 21,
+   "Major": "Communication Arts",
+   "RC": "Creation"
 }
