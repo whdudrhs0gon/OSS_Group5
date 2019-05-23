@@ -58,11 +58,27 @@ void JSON_parse(char* buffer, long file_size, int* token_size, TOKEN *tokens) {
 
 				char* begin = buffer + i;
 				tokens[tokenIndex].start = begin - buffer;
-				char* end = strchr(begin, '}');
+
+				//
+				int test = 0;
+				char* end;
+				
+				for (int j = i+1; j < file_size; j++) {
+					if (buffer[j] == '{') test++;
+					if (buffer[j] == '}') test--;
+						
+					if (test <= -1) {
+						end = &buffer[j];
+						test = 0;
+						break;
+					}
+				}						
+					
+				
 				tokens[tokenIndex].end = end - buffer + 1;
 				int stringLength = end - begin + 1;
 
-				tokens[tokenIndex].type = ARRAY;
+				tokens[tokenIndex].type = OBJECT;
 				tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
 				memset(tokens[tokenIndex].string, 0, stringLength + 1);
 
@@ -203,10 +219,10 @@ void Find_TokenSize(char* buffer, int tokens_size, TOKEN *tokens) {
 				int start = tokens[++i].start;
 
 				if (start > end || i >= tokens_size) break;
-				size++;
+				size++;			
 			}
-			i = i - size - 1;
-			tokens[i].size = size / 2;
+			i = i - size - 1;			
+			tokens[i].size = (size) / 2;
 			size = 0;
 		}
 		break;
@@ -265,6 +281,29 @@ void Find_TokenSize(char* buffer, int tokens_size, TOKEN *tokens) {
 		break;
 		}
 	}
+
+	int object_size;
+	for (int i = 0; i < tokens_size; i++) {
+		if (tokens[i].string[0] == '{') {
+			for (int j = i+1; j < tokens_size; j++) {
+				if (tokens[j].type == OBJECT && tokens[i].end >= tokens[j].start) {
+					tokens[i].size = tokens[i].size - tokens[j].size;					
+					break;
+				}						
+			}
+
+			object_size = 0;
+			for (int j = i+1; j < tokens_size; j++) {
+				if (tokens[j].string[0] == '{' && tokens[i].end >= tokens[j].start) break;
+
+				if (tokens[j].type == OBJECT && tokens[i].end >= tokens[j].start) {
+					object_size += tokens[j].size;				
+				}						
+			}
+			tokens[i].size = (tokens[i].size*2 - object_size)/2;
+			object_size = 0;							
+		}
+	}
 }
 
 int main(int argc, char **argv) {
@@ -277,10 +316,6 @@ int main(int argc, char **argv) {
 	if (argc >= 1) {
 		file = argv[1];
 	}
-	
-	//file = "library.json";
-
-
 	buffer = FREAD(file,&file_size);
 	printf("%s", buffer);
 	printf("\n\n --Done-- \n\n");
@@ -290,7 +325,7 @@ int main(int argc, char **argv) {
 	printf("\n\n --Small case Done-- \n\n");
     printf("--Tokens-- \n\n");
 
-	TOKEN tokens[128];
+	TOKEN tokens[1024];
 	JSON_parse(buffer, file_size, &tokens_size, tokens);
 	
 	Find_TokenSize(buffer, tokens_size, tokens);
