@@ -311,10 +311,12 @@ int main(int argc, char **argv) {
 	long file_size;
 	int tokens_size = 0;
 	char* file;
-	
-	
+	int filenumber;
+	TOKEN tokens[1024];
+	for(filenumber=1;filenumber<4;filenumber++)
+	{
 	if (argc >= 1) {
-		file = argv[1];
+		file = argv[filenumber];
 	}
 	buffer = FREAD(file,&file_size);
 	printf("%s", buffer);
@@ -325,7 +327,6 @@ int main(int argc, char **argv) {
 	printf("\n\n --Small case Done-- \n\n");
     printf("--Tokens-- \n\n");
 
-	TOKEN tokens[1024];
 	JSON_parse(buffer, file_size, &tokens_size, tokens);
 	
 	Find_TokenSize(buffer, tokens_size, tokens);
@@ -333,7 +334,7 @@ int main(int argc, char **argv) {
 	for (int i = 0; i < tokens_size; i++) {
 		printf("[%d] %s (size=%d, %d~%d, %s)\n",i+1, tokens[i].string, tokens[i].size, tokens[i].start, tokens[i].end, type[tokens[i].type]);
 	}
-
+	}
 	free_tokens(tokens, tokens_size);
 	free(buffer);
 	return EXIT_SUCCESS;
