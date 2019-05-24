@@ -337,50 +337,50 @@ void OptionSearch(int tokens_size, TOKEN *tokens){
 	//scanf("%s", search);
     for(int j=0; j<i; j++){
         if(option[j]=='f'){
-                printf("--------------------\n\n");
+                //printf("--------------------\n\n");
             for (int i = 0; i < tokens_size; i++) {	
                 if(!strcmp("First name", tokens[i].string))
-                    printf("%s\n", tokens[i+1].string);
+                    printf("First name: %s\n", tokens[i+1].string);
             }
-            printf("\n--------------------\n\n");
+            //printf("\n--------------------\n\n");
         }
         if(option[j]=='l'){
-                printf("--------------------\n\n");
+                //printf("--------------------\n\n");
             for (int i = 0; i < tokens_size; i++) {	
                 if(!strcmp("Last name", tokens[i].string))
-                    printf("%s\n", tokens[i+1].string);
+                    printf("Last name: %s\n", tokens[i+1].string);
             }
-            printf("\n--------------------\n\n");
+            //printf("\n--------------------\n\n");
         }
         if(option[j]=='i'){
-                printf("--------------------\n\n");
+                //printf("--------------------\n\n");
             for (int i = 0; i < tokens_size; i++) {	
                 if(!strcmp("Student_ID", tokens[i].string))
-                    printf("%s\n", tokens[i+1].string);
+                    printf("Student_ID: %s\n", tokens[i+1].string);
             }
-            printf("\n--------------------\n\n");
+            //printf("\n--------------------\n\n");
         }
         if(option[j]=='a'){
-                printf("--------------------\n\n");
+                //printf("--------------------\n\n");
             for (int i = 0; i < tokens_size; i++) {	
                 if(!strcmp("Age", tokens[i].string))
-                    printf("%s\n", tokens[i+1].string);
+                    printf("Age: %s\n", tokens[i+1].string);
             }
-            printf("\n--------------------\n\n");
+            //printf("\n--------------------\n\n");
         }
         if(option[j]=='m'){
-                printf("--------------------\n\n");
+                //printf("--------------------\n\n");
             for (int i = 0; i < tokens_size; i++) {	
                 if(!strcmp("Major", tokens[i].string))
-                    printf("%s\n", tokens[i+1].string);
+                    printf("Major: %s\n", tokens[i+1].string);
             }
-            printf("\n--------------------\n\n");
+            //printf("\n--------------------\n\n");
         }
         if(option[j]=='r'){
-                printf("--------------------\n\n");
+                //printf("--------------------\n\n");
             for (int i = 0; i < tokens_size; i++) {	
                 if(!strcmp("RC", tokens[i].string))
-                    printf("%s\n", tokens[i+1].string);
+                    printf("RC: %s\n", tokens[i+1].string);
             }
             printf("\n--------------------\n\n");
         }
@@ -413,18 +413,22 @@ int main(int argc, char **argv) {
 	Find_TokenSize(buffer, tokens_size, tokens);
 
 	char option;
-	printf("**********APPLICATION**********\n\nWelcome to data management application\nChoose what you want to do\n\n");
-	printf("\n -p : print token");
-	printf("\n -s : search information");
-	printf("\n*******************************\n");
-	printf("\t\t-->");
-	scanf(" %c", &option);
-	
-	switch(option){
-		case 'p' : OptionPrint(tokens_size,tokens);
-					break;
-		case 's' : OptionSearch(tokens_size,tokens);
-					break;
+	while(1){
+		printf("**********APPLICATION**********\n\nWelcome to data management application\nChoose what you want to do\n\n");
+		printf("\n -p : print token");
+		printf("\n -s : search information");
+		printf("\n -q : termination");
+		printf("\n*******************************\n");
+		printf("\t\t-->");
+		scanf(" %c", &option);
+		
+		switch(option){
+			case 'p' : OptionPrint(tokens_size,tokens);
+						break;
+			case 's' : OptionSearch(tokens_size,tokens);
+						break;
+		}
+		if(option == 'q') break;
 	}
 	free_tokens(tokens, tokens_size);
 	free(buffer);
