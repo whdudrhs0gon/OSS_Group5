@@ -403,18 +403,22 @@ int main(int argc, char **argv) {
 	Find_TokenSize(buffer, tokens_size, tokens);
 
 	char option;
-	printf("**********APPLICATION**********\n\nWelcome to data management application\nChoose what you want to do\n\n");
-	printf("\n -p : print token");
-	printf("\n -s : search information");
-	printf("\n*******************************\n");
-	printf("\t\t-->");
-	scanf(" %c", &option);
-	
-	switch(option){
-		case 'p' : OptionPrint(tokens_size,tokens);
-					break;
-		case 's' : OptionSearch(tokens_size,tokens);
-					break;
+	while(1){
+		printf("**********APPLICATION**********\n\nWelcome to data management application\nChoose what you want to do\n\n");
+		printf("\n -p : print token");
+		printf("\n -s : search information");
+		printf("\n -q : termination");
+		printf("\n*******************************\n");
+		printf("\t\t-->");
+		scanf(" %c", &option);
+		
+		switch(option){
+			case 'p' : OptionPrint(tokens_size,tokens);
+						break;
+			case 's' : OptionSearch(tokens_size,tokens);
+						break;
+		}
+		if(option == 'q') break;
 	}
 	free_tokens(tokens, tokens_size);
 	free(buffer);
