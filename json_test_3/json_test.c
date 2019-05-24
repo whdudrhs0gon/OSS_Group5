@@ -407,6 +407,7 @@ int main(int argc, char **argv) {
 		printf("**********APPLICATION**********\n\nWelcome to data management application\nChoose what you want to do\n\n");
 		printf("\n -p : print token");
 		printf("\n -s : search information");
+		printf("\n -i : search information from ID"		)
 		printf("\n -q : termination");
 		printf("\n*******************************\n");
 		printf("\t\t-->");
