@@ -312,9 +312,17 @@ void OptionPrint(int tokens_size, TOKEN *tokens){
 	}
 }
 
+void OptionID(int tokens_size, TOKEN *tokens){
+    int idnumber;
+    printf("\n\n Enter student ID : ");
+    scanf("%d", &idnumber);
+
+
+    }
+
 void OptionSearch(int tokens_size, TOKEN *tokens){
 	char option;
-	char search[1024];
+	char search[10000];
 	printf("\n\nChoose what information to search");
 	printf("\n\t -f : first name");
 	printf("\n\t -l : last name");
@@ -377,50 +385,48 @@ void OptionSearch(int tokens_size, TOKEN *tokens){
 	}
 }
 
+
 int main(int argc, char **argv) {
 	char* buffer;
 	long file_size;
 	int tokens_size = 0;
 	char* file;
-	
-	
-	if (argc >= 1) {
-		file = argv[1];
-	}
-	buffer = FREAD(file,&file_size);
-	/*
-	printf("%s", buffer);
-	printf("\n\n --Done-- \n\n");
-	lower_string(buffer);
-
-	printf("%s", buffer);
-	printf("\n\n --Small case Done-- \n\n");
-    printf("--Tokens-- \n\n");
-	*/
-	TOKEN tokens[1024];
-	JSON_parse(buffer, file_size, &tokens_size, tokens);
-	
-	Find_TokenSize(buffer, tokens_size, tokens);
-
+    int filenumber;
+    TOKEN tokens[10000];
+        
 	char option;
 	while(1){
 		printf("**********APPLICATION**********\n\nWelcome to data management application\nChoose what you want to do\n\n");
 		printf("\n -p : print token");
 		printf("\n -s : search information");
-		printf("\n -i : search information from ID"		)
+		printf("\n -i : search information from ID");
 		printf("\n -q : termination");
 		printf("\n*******************************\n");
 		printf("\t\t-->");
 		scanf(" %c", &option);
-		
-		switch(option){
-			case 'p' : OptionPrint(tokens_size,tokens);
-						break;
-			case 's' : OptionSearch(tokens_size,tokens);
-						break;
-		}
-		if(option == 'q') break;
-	}
+	
+
+    for(filenumber=1;filenumber<4;filenumber++)
+    {
+        if (argc >= 1) {
+            file = argv[filenumber];
+        }
+        buffer = FREAD(file,&file_size);
+        JSON_parse(buffer, file_size, &tokens_size, tokens);
+        
+        Find_TokenSize(buffer, tokens_size, tokens);
+            switch(option){
+                case 'p' : OptionPrint(tokens_size,tokens);
+                            break;
+                case 's' : OptionSearch(tokens_size,tokens);
+                            break;
+                case 'i' : OptionID(tokens_size,tokens);
+                            break;
+            }
+            if(option == 'q') break;
+        }
+    }
+
 	free_tokens(tokens, tokens_size);
 	free(buffer);
 	return EXIT_SUCCESS;
