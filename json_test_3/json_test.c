@@ -26,7 +26,7 @@ typedef struct {
 } TOKEN;
 
 
-char* FREAD(char *file, long *file_size) {
+char* FREAD(char* file, long* file_size) {
 	FILE* fp;
 	fp = fopen(file, "r");
 	long size;
@@ -47,144 +47,144 @@ char* FREAD(char *file, long *file_size) {
 }
 
 
-void JSON_parse(char* buffer, long file_size, int* token_size, TOKEN *tokens) {
+void JSON_parse(char* buffer, long file_size, int* token_size, TOKEN * tokens) {
 	int tokenIndex = 0;
 
 	for (int i = 0; i < file_size; i++) {
 		switch (buffer[i]) {
-			case '{':
-			{
-				if (i == 0) continue;
+		case '{':
+		{
+			if (i == 0) continue;
 
-				char* begin = buffer + i;
-				tokens[tokenIndex].start = begin - buffer;
+			char* begin = buffer + i;
+			tokens[tokenIndex].start = begin - buffer;
 
-				//
-				int test = 0;
-				char* end;
-				
-				for (int j = i+1; j < file_size; j++) {
-					if (buffer[j] == '{') test++;
-					if (buffer[j] == '}') test--;
-						
-					if (test <= -1) {
-						end = &buffer[j];
-						test = 0;
-						break;
-					}
-				}						
-					
-				
-				tokens[tokenIndex].end = end - buffer + 1;
-				int stringLength = end - begin + 1;
+			//
+			int test = 0;
+			char* end = begin;                            /////////////////////////////////////
 
-				tokens[tokenIndex].type = OBJECT;
-				tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
-				memset(tokens[tokenIndex].string, 0, stringLength + 1);
+			for (int j = i + 1; j < file_size; j++) {
+				if (buffer[j] == '{') test++;
+				if (buffer[j] == '}') test--;
 
-				memcpy(tokens[tokenIndex].string, begin, stringLength);
-				tokenIndex++;
-				*token_size = tokenIndex;
+				if (test <= -1) {
+					end = &buffer[j];
+					test = 0;
+					break;
+				}
 			}
-			break;
 
-			case '[':
-			{
-				char* begin = buffer + i;
-				tokens[tokenIndex].start = begin - buffer;
-				char* end = strchr(begin, ']');
-				tokens[tokenIndex].end = end - buffer + 1;
-				int stringLength = end - begin + 1;
 
-				tokens[tokenIndex].type = ARRAY;
-				tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
-				memset(tokens[tokenIndex].string, 0, stringLength + 1);
+			tokens[tokenIndex].end = end - buffer + 1;
+			int stringLength = end - begin + 1;
 
-				memcpy(tokens[tokenIndex].string, begin, stringLength);
-				tokenIndex++;
-				*token_size = tokenIndex;
-			}
-			break;
+			tokens[tokenIndex].type = OBJECT;
+			tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
+			memset(tokens[tokenIndex].string, 0, stringLength + 1);
 
-			case '"':
-			{
-				char* begin = buffer + i + 1;
-				tokens[tokenIndex].start = begin - buffer;
-				char* end = strchr(begin, '"');
-				tokens[tokenIndex].end = end - buffer;
-				int stringLength = end - begin;
+			memcpy(tokens[tokenIndex].string, begin, stringLength);
+			tokenIndex++;
+			*token_size = tokenIndex;
+		}
+		break;
 
-				tokens[tokenIndex].type = STRING;
-				tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
-				memset(tokens[tokenIndex].string, 0, stringLength + 1);
-				memcpy(tokens[tokenIndex].string, begin, stringLength);
+		case '[':
+		{
+			char* begin = buffer + i;
+			tokens[tokenIndex].start = begin - buffer;
+			char* end = strchr(begin, ']');
+			tokens[tokenIndex].end = end - buffer + 1;
+			int stringLength = end - begin + 1;
 
-				tokenIndex++;
-				*token_size = tokenIndex;
+			tokens[tokenIndex].type = ARRAY;
+			tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
+			memset(tokens[tokenIndex].string, 0, stringLength + 1);
 
-				i = i + stringLength + 1;
-			}
-			break;
+			memcpy(tokens[tokenIndex].string, begin, stringLength);
+			tokenIndex++;
+			*token_size = tokenIndex;
+		}
+		break;
 
-			case 't':
-			{
-				char* begin = buffer + i;
-				tokens[tokenIndex].start = begin - buffer;
-				char* end = strchr(begin, 'e');
-				tokens[tokenIndex].end = end - buffer + 1;
-				int stringLength = end - begin + 1;
+		case '"':
+		{
+			char* begin = buffer + i + 1;
+			tokens[tokenIndex].start = begin - buffer;
+			char* end = strchr(begin, '"');
+			tokens[tokenIndex].end = end - buffer;
+			int stringLength = end - begin;
 
-				tokens[tokenIndex].type = PRIMITIVE;
-				tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
-				memset(tokens[tokenIndex].string, 0, stringLength + 1);
-				memcpy(tokens[tokenIndex].string, begin, stringLength);
-				tokenIndex++;
-				*token_size = tokenIndex;
-				i = i + stringLength + 1;
-			}
-			break;
+			tokens[tokenIndex].type = STRING;
+			tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
+			memset(tokens[tokenIndex].string, 0, stringLength + 1);
+			memcpy(tokens[tokenIndex].string, begin, stringLength);
 
-			case 'f':
-			{
-				char* begin = buffer + i;
-				tokens[tokenIndex].start = begin - buffer;
-				char* end = strchr(begin, 'e');
-				tokens[tokenIndex].end = end - buffer + 1;
-				int stringLength = end - begin + 1;
+			tokenIndex++;
+			*token_size = tokenIndex;
 
-				tokens[tokenIndex].type = PRIMITIVE;
-				tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
-				memset(tokens[tokenIndex].string, 0, stringLength + 1);
-				memcpy(tokens[tokenIndex].string, begin, stringLength);
-				tokenIndex++;
-				*token_size = tokenIndex;
-				i = i + stringLength + 1;
-			}
-			break;
+			i = i + stringLength + 1;
+		}
+		break;
 
-			case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9': case '-':
-			{
-				char* begin = buffer + i;
-				tokens[tokenIndex].start = begin - buffer;
-				char* end = strchr(begin, ',');
-				tokens[tokenIndex].end = end - buffer;
-				int stringLength = end - begin;
+		case 't':
+		{
+			char* begin = buffer + i;
+			tokens[tokenIndex].start = begin - buffer;
+			char* end = strchr(begin, 'e');
+			tokens[tokenIndex].end = end - buffer + 1;
+			int stringLength = end - begin + 1;
 
-				tokens[tokenIndex].type = PRIMITIVE;
-				tokens[tokenIndex].string = (char*)malloc(stringLength);
-				memset(tokens[tokenIndex].string, 0, stringLength + 1);
-				memcpy(tokens[tokenIndex].string, begin, stringLength);
-				tokenIndex++;
-				*token_size = tokenIndex;
-				i = i + stringLength + 1;
-			}
-			break;
+			tokens[tokenIndex].type = PRIMITIVE;
+			tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
+			memset(tokens[tokenIndex].string, 0, stringLength + 1);
+			memcpy(tokens[tokenIndex].string, begin, stringLength);
+			tokenIndex++;
+			*token_size = tokenIndex;
+			i = i + stringLength + 1;
+		}
+		break;
+
+		case 'f':
+		{
+			char* begin = buffer + i;
+			tokens[tokenIndex].start = begin - buffer;
+			char* end = strchr(begin, 'e');
+			tokens[tokenIndex].end = end - buffer + 1;
+			int stringLength = end - begin + 1;
+
+			tokens[tokenIndex].type = PRIMITIVE;
+			tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
+			memset(tokens[tokenIndex].string, 0, stringLength + 1);
+			memcpy(tokens[tokenIndex].string, begin, stringLength);
+			tokenIndex++;
+			*token_size = tokenIndex;
+			i = i + stringLength + 1;
+		}
+		break;
+
+		case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9': case '-':
+		{
+			char* begin = buffer + i;
+			tokens[tokenIndex].start = begin - buffer;
+			char* end = strchr(begin, ',');
+			tokens[tokenIndex].end = end - buffer;
+			int stringLength = end - begin;
+
+			tokens[tokenIndex].type = PRIMITIVE;
+			tokens[tokenIndex].string = (char*)malloc(stringLength);
+			memset(tokens[tokenIndex].string, 0, stringLength + 1);
+			memcpy(tokens[tokenIndex].string, begin, stringLength);
+			tokenIndex++;
+			*token_size = tokenIndex;
+			i = i + stringLength + 1;
+		}
+		break;
 		}
 	}
 
 }
 
-void free_tokens(TOKEN *tokens, int token_size) {
+void free_tokens(TOKEN * tokens, int token_size) {
 	for (int i = 0; i < token_size; i++) {
 		if (tokens[i].type == STRING) {
 			free(tokens[i].string);
@@ -195,17 +195,17 @@ void free_tokens(TOKEN *tokens, int token_size) {
 void lower_string(char s[])
 {
 	int c = 0;
-    while(s[c] != '\0')
-    {
-        if (s[c] >= 65 && s[c] <= 90)
-        {
-            s[c] = s[c] + 32;
-        }
-        c++;
-    }
+	while (s[c] != '\0')
+	{
+		if (s[c] >= 65 && s[c] <= 90)
+		{
+			s[c] = s[c] + 32;
+		}
+		c++;
+	}
 }
 
-void Find_TokenSize(char* buffer, int tokens_size, TOKEN *tokens) {
+void Find_TokenSize(char* buffer, int tokens_size, TOKEN * tokens) {
 	int size = 0; // token[i].size
 	int key = TRUE;
 
@@ -219,9 +219,9 @@ void Find_TokenSize(char* buffer, int tokens_size, TOKEN *tokens) {
 				int start = tokens[++i].start;
 
 				if (start > end || i >= tokens_size) break;
-				size++;			
+				size++;
 			}
-			i = i - size - 1;			
+			i = i - size - 1;
 			tokens[i].size = (size) / 2;
 			size = 0;
 		}
@@ -285,45 +285,38 @@ void Find_TokenSize(char* buffer, int tokens_size, TOKEN *tokens) {
 	int object_size;
 	for (int i = 0; i < tokens_size; i++) {
 		if (tokens[i].string[0] == '{') {
-			for (int j = i+1; j < tokens_size; j++) {
+			for (int j = i + 1; j < tokens_size; j++) {
 				if (tokens[j].type == OBJECT && tokens[i].end >= tokens[j].start) {
-					tokens[i].size = tokens[i].size - tokens[j].size;					
+					tokens[i].size = tokens[i].size - tokens[j].size;
 					break;
-				}						
+				}
 			}
 
 			object_size = 0;
-			for (int j = i+1; j < tokens_size; j++) {
+			for (int j = i + 1; j < tokens_size; j++) {
 				if (tokens[j].string[0] == '{' && tokens[i].end >= tokens[j].start) break;
 
 				if (tokens[j].type == OBJECT && tokens[i].end >= tokens[j].start) {
-					object_size += tokens[j].size;				
-				}						
+					object_size += tokens[j].size;
+				}
 			}
-			tokens[i].size = (tokens[i].size*2 - object_size)/2;
-			object_size = 0;							
+			tokens[i].size = (tokens[i].size * 2 - object_size) / 2;
+			object_size = 0;
 		}
 	}
 }
 
-void OptionPrint(int tokens_size, TOKEN *tokens){
+void OptionPrint(int tokens_size, TOKEN * tokens) {
 	for (int i = 0; i < tokens_size; i++) {
-		printf("[%d] %s (size=%d, %d~%d, %s)\n",i+1, tokens[i].string, tokens[i].size, tokens[i].start, tokens[i].end, type[tokens[i].type]);
+		printf("[%d] %s (size=%d, %d~%d, %s)\n", i + 1, tokens[i].string, tokens[i].size, tokens[i].start, tokens[i].end, type[tokens[i].type]);
 	}
 }
 
-void OptionID(int tokens_size, TOKEN *tokens){
-    int idnumber;
-    printf("\n\n Enter student ID : ");
-    scanf("%d", &idnumber);
-
-
-    }
-
-void OptionSearch(int tokens_size, TOKEN *tokens){
-	char option;
-	char search[10000];
-	printf("\n\nChoose what information to search");
+void OptionSearch(int tokens_size, TOKEN * tokens) {
+	char option[7];
+	char search[1024];
+	int i = 0;
+	printf("\n\nChoose what information to search(to stop enter zero)");
 	printf("\n\t -f : first name");
 	printf("\n\t -l : last name");
 	printf("\n\t -i : student id");
@@ -331,103 +324,172 @@ void OptionSearch(int tokens_size, TOKEN *tokens){
 	printf("\n\t -m : major");
 	printf("\n\t -r : RC");
 	printf("\n\t\t-->");
-	scanf(" %c", &option);
+	while (1) {
+		scanf(" %c", &option[i]);
+		if (option[i] == 'f' || option[i] == 'l' || option[i] == 'i' || option[i] == 'a' || option[i] == 'm' || option[i] == 'r') {
+			i++;
+		}
+		else
+			break;
+	}
 
 	//printf("\n\nEnter information to search");
 	//scanf("%s", search);
-	if(option=='f'){
-			printf("--------------------\n\n");
-		for (int i = 0; i < tokens_size; i++) {	
-			if(!strcmp("First name", tokens[i].string))
-				printf("%s\n", tokens[i+1].string);
+	for (int j = 0; j < i; j++) {
+		if (option[j] == 'f') {
+			//printf("--------------------\n\n");
+			for (int i = 0; i < tokens_size; i++) {
+				if (!strcmp("First name", tokens[i].string))
+					printf("First name: %s\n", tokens[i + 1].string);
+			}
+			//printf("\n--------------------\n\n");
 		}
-		printf("\n--------------------\n\n");
-	}
-	if(option=='l'){
-			printf("--------------------\n\n");
-		for (int i = 0; i < tokens_size; i++) {	
-			if(!strcmp("Last name", tokens[i].string))
-				printf("%s\n", tokens[i+1].string);
+		if (option[j] == 'l') {
+			//printf("--------------------\n\n");
+			for (int i = 0; i < tokens_size; i++) {
+				if (!strcmp("Last name", tokens[i].string))
+					printf("Last name: %s\n", tokens[i + 1].string);
+			}
+			//printf("\n--------------------\n\n");
 		}
-		printf("\n--------------------\n\n");
-	}
-	if(option=='i'){
-			printf("--------------------\n\n");
-		for (int i = 0; i < tokens_size; i++) {	
-			if(!strcmp("Student_ID", tokens[i].string))
-				printf("%s\n", tokens[i+1].string);
+		if (option[j] == 'i') {
+			//printf("--------------------\n\n");
+			for (int i = 0; i < tokens_size; i++) {
+				if (!strcmp("Student_ID", tokens[i].string))
+					printf("Student_ID: %s\n", tokens[i + 1].string);
+			}
+			//printf("\n--------------------\n\n");
 		}
-		printf("\n--------------------\n\n");
-	}
-	if(option=='a'){
-			printf("--------------------\n\n");
-		for (int i = 0; i < tokens_size; i++) {	
-			if(!strcmp("Age", tokens[i].string))
-				printf("%s\n", tokens[i+1].string);
+		if (option[j] == 'a') {
+			//printf("--------------------\n\n");
+			for (int i = 0; i < tokens_size; i++) {
+				if (!strcmp("Age", tokens[i].string))
+					printf("Age: %s\n", tokens[i + 1].string);
+			}
+			//printf("\n--------------------\n\n");
 		}
-		printf("\n--------------------\n\n");
-	}
-	if(option=='m'){
-			printf("--------------------\n\n");
-		for (int i = 0; i < tokens_size; i++) {	
-			if(!strcmp("Major", tokens[i].string))
-				printf("%s\n", tokens[i+1].string);
+		if (option[j] == 'm') {
+			//printf("--------------------\n\n");
+			for (int i = 0; i < tokens_size; i++) {
+				if (!strcmp("Major", tokens[i].string))
+					printf("Major: %s\n", tokens[i + 1].string);
+			}
+			//printf("\n--------------------\n\n");
 		}
-		printf("\n--------------------\n\n");
-	}
-	if(option=='r'){
-			printf("--------------------\n\n");
-		for (int i = 0; i < tokens_size; i++) {	
-			if(!strcmp("RC", tokens[i].string))
-				printf("%s\n", tokens[i+1].string);
+		if (option[j] == 'r') {
+			//printf("--------------------\n\n");
+			for (int i = 0; i < tokens_size; i++) {
+				if (!strcmp("RC", tokens[i].string))
+					printf("RC: %s\n", tokens[i + 1].string);
+			}
+			printf("\n--------------------\n\n");
 		}
-		printf("\n--------------------\n\n");
 	}
 }
 
+void OptionID(int tokens_size, TOKEN * tokens, char* idnumber) {
 
-int main(int argc, char **argv) {
-	char* buffer;
+	for (int i = 0; i < tokens_size; i++) {
+		if (!strncmp(idnumber, tokens[i].string,8) && strlen(tokens[i].string)==8 ) {
+			OptionPrint(tokens_size, tokens);
+		}
+	}
+}
+
+int main(int argc, char** argv) {
+	char* buffer = "";
 	long file_size;
 	int tokens_size = 0;
-	char* file;
-    int filenumber;
-    TOKEN tokens[10000];
-        
+	char* file = "";
+	TOKEN tokens[1024];
+
 	char option;
-	while(1){
+	while (1) {
 		printf("**********APPLICATION**********\n\nWelcome to data management application\nChoose what you want to do\n\n");
 		printf("\n -p : print token");
 		printf("\n -s : search information");
-		printf("\n -i : search information from ID");
+		printf("\n -i : search information using student_ID");
 		printf("\n -q : termination");
 		printf("\n*******************************\n");
 		printf("\t\t-->");
 		scanf(" %c", &option);
-	
 
-    for(filenumber=1;filenumber<4;filenumber++)
-    {
-        if (argc >= 1) {
-            file = argv[filenumber];
-        }
-        buffer = FREAD(file,&file_size);
-        JSON_parse(buffer, file_size, &tokens_size, tokens);
-        
-        Find_TokenSize(buffer, tokens_size, tokens);
-            switch(option){
-                case 'p' : OptionPrint(tokens_size,tokens);
-                            break;
-                case 's' : OptionSearch(tokens_size,tokens);
-                            break;
-                case 'i' : OptionID(tokens_size,tokens);
-                            break;
-            }
-            if(option == 'q') break;
-        }
-    }
+		switch (option) {
+		case 'p':
+		{
+			for (int filenumber = 1; filenumber < argc; filenumber++)
+			{
+				if (argc >= 1) {
+					file = argv[filenumber];
+				}
 
-	free_tokens(tokens, tokens_size);
-	free(buffer);
-	return EXIT_SUCCESS;
+				buffer = FREAD(file, &file_size);
+				/*
+				printf("%s", buffer);
+				printf("\n\n --Done-- \n\n");
+				lower_string(buffer);
+
+				printf("%s", buffer);
+				printf("\n\n --Small case Done-- \n\n");
+				printf("--Tokens-- \n\n");
+				*/
+				JSON_parse(buffer, file_size, &tokens_size, tokens);
+
+				Find_TokenSize(buffer, tokens_size, tokens);
+				OptionPrint(tokens_size, tokens);
+
+				free_tokens(tokens, tokens_size);
+				free(buffer);
+				printf("\n");
+			}
+		}
+		break;
+
+		case 's':
+		{
+			OptionSearch(tokens_size, tokens);
+		}
+		break;
+
+		case 'i':
+		{
+			char* idnumber = malloc(sizeof(char) * 20);
+			printf("\n\n Enter student ID : ");
+			scanf("%s", idnumber);
+
+			for (int filenumber = 1; filenumber < argc; filenumber++)
+			{
+				if (argc >= 1) {
+					file = argv[filenumber];
+				}
+
+				buffer = FREAD(file, &file_size);
+				/*
+				printf("%s", buffer);
+				printf("\n\n --Done-- \n\n");
+				lower_string(buffer);
+
+				printf("%s", buffer);
+				printf("\n\n --Small case Done-- \n\n");
+				printf("--Tokens-- \n\n");
+				*/
+				JSON_parse(buffer, file_size, &tokens_size, tokens);
+
+				Find_TokenSize(buffer, tokens_size, tokens);
+				OptionID(tokens_size, tokens, idnumber);
+
+				free_tokens(tokens, tokens_size);
+				free(buffer);
+			}
+
+			free(idnumber);
+		}
+		break;
+
+		case 'q':
+		{
+			return EXIT_SUCCESS;
+		}
+		}
+	}
 }
