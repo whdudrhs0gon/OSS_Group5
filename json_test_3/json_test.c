@@ -305,17 +305,45 @@ void Find_TokenSize(char* buffer, int tokens_size, TOKEN * tokens) {
 		}
 	}
 }
-
-void OptionPrint(int tokens_size, TOKEN * tokens) {
+void OptionPrint(int tokens_size, TOKEN *tokens){
 	for (int i = 0; i < tokens_size; i++) {
-		printf("[%d] %s (size=%d, %d~%d, %s)\n", i + 1, tokens[i].string, tokens[i].size, tokens[i].start, tokens[i].end, type[tokens[i].type]);
+		printf("[%d] %s (size=%d, %d~%d, %s)\n",i+1, tokens[i].string, tokens[i].size, tokens[i].start, tokens[i].end, type[tokens[i].type]);
 	}
 }
 
-void OptionSearch(int tokens_size, TOKEN * tokens) {
+void OptionPrintS(int tokens_size, TOKEN * tokens) {
+	for (int i = 0; i < tokens_size; i++) {
+		//printf("%s (size=%d, %d~%d, %s)\n", tokens[i].string, tokens[i].size, tokens[i].start, tokens[i].end, type[tokens[i].type]);
+		char* str = tokens[i].string;
+		for(int a = 0; a < tokens[i].end - tokens[i].start; a++)
+		{
+		if (str[a]>='A' && str[a]<='Z' && a==0)
+		{	str[a] = str[a] + 32;}
+
+		if (str[a]>='a' && str[a]<='z' && a!=0 && str[a-1]==' ')
+		{	str[a] = str[a] - 32;}
+
+		if (str[0]>='a' && str[0]<='z')
+		{	str[0] = str[0] - 32;}
+		}
+
+		switch (i%2)
+		{
+			case 0 :
+				printf("     - %s : ", str);
+				break;
+			case 1 :
+				
+				printf("%s\n", str);
+				break;
+		}
+	}
+}
+
+void OptionSearch(int tokens_size, TOKEN *tokens){
 	char option[7];
 	char search[1024];
-	int i = 0;
+    int i=0;
 	printf("\n\nChoose what information to search(to stop enter zero)");
 	printf("\n\t -f : first name");
 	printf("\n\t -l : last name");
@@ -324,76 +352,83 @@ void OptionSearch(int tokens_size, TOKEN * tokens) {
 	printf("\n\t -m : major");
 	printf("\n\t -r : RC");
 	printf("\n\t\t-->");
-	while (1) {
-		scanf(" %c", &option[i]);
-		if (option[i] == 'f' || option[i] == 'l' || option[i] == 'i' || option[i] == 'a' || option[i] == 'm' || option[i] == 'r') {
-			i++;
-		}
-		else
-			break;
-	}
+    while(1){
+	    scanf(" %c", &option[i]);
+        if(option[i]=='f'||option[i]=='l'||option[i]=='i'||option[i]=='a'||option[i]=='m'||option[i]=='r'){
+            i++;
+        }
+        else 
+            break;
+    }
 
 	//printf("\n\nEnter information to search");
 	//scanf("%s", search);
-	for (int j = 0; j < i; j++) {
-		if (option[j] == 'f') {
-			//printf("--------------------\n\n");
-			for (int i = 0; i < tokens_size; i++) {
-				if (!strcmp("First name", tokens[i].string))
-					printf("First name: %s\n", tokens[i + 1].string);
-			}
-			//printf("\n--------------------\n\n");
-		}
-		if (option[j] == 'l') {
-			//printf("--------------------\n\n");
-			for (int i = 0; i < tokens_size; i++) {
-				if (!strcmp("Last name", tokens[i].string))
-					printf("Last name: %s\n", tokens[i + 1].string);
-			}
-			//printf("\n--------------------\n\n");
-		}
-		if (option[j] == 'i') {
-			//printf("--------------------\n\n");
-			for (int i = 0; i < tokens_size; i++) {
-				if (!strcmp("Student_ID", tokens[i].string))
-					printf("Student_ID: %s\n", tokens[i + 1].string);
-			}
-			//printf("\n--------------------\n\n");
-		}
-		if (option[j] == 'a') {
-			//printf("--------------------\n\n");
-			for (int i = 0; i < tokens_size; i++) {
-				if (!strcmp("Age", tokens[i].string))
-					printf("Age: %s\n", tokens[i + 1].string);
-			}
-			//printf("\n--------------------\n\n");
-		}
-		if (option[j] == 'm') {
-			//printf("--------------------\n\n");
-			for (int i = 0; i < tokens_size; i++) {
-				if (!strcmp("Major", tokens[i].string))
-					printf("Major: %s\n", tokens[i + 1].string);
-			}
-			//printf("\n--------------------\n\n");
-		}
-		if (option[j] == 'r') {
-			//printf("--------------------\n\n");
-			for (int i = 0; i < tokens_size; i++) {
-				if (!strcmp("RC", tokens[i].string))
-					printf("RC: %s\n", tokens[i + 1].string);
-			}
-			printf("\n--------------------\n\n");
-		}
-	}
+    for(int j=0; j<i; j++){
+        if(option[j]=='f'){
+                //printf("--------------------\n\n");
+            for (int i = 0; i < tokens_size; i++) {	
+                if(!strcmp("First name", tokens[i].string))
+                    printf("First name: %s\n", tokens[i+1].string);
+            }
+            //printf("\n--------------------\n\n");
+        }
+        if(option[j]=='l'){
+                //printf("--------------------\n\n");
+            for (int i = 0; i < tokens_size; i++) {	
+                if(!strcmp("Last name", tokens[i].string))
+                    printf("Last name: %s\n", tokens[i+1].string);
+            }
+            //printf("\n--------------------\n\n");
+        }
+        if(option[j]=='i'){
+                //printf("--------------------\n\n");
+            for (int i = 0; i < tokens_size; i++) {	
+                if(!strcmp("Student_ID", tokens[i].string))
+                    printf("Student_ID: %s\n", tokens[i+1].string);
+            }
+            //printf("\n--------------------\n\n");
+        }
+        if(option[j]=='a'){
+                //printf("--------------------\n\n");
+            for (int i = 0; i < tokens_size; i++) {	
+                if(!strcmp("Age", tokens[i].string))
+                    printf("Age: %s\n", tokens[i+1].string);
+            }
+            //printf("\n--------------------\n\n");
+        }
+        if(option[j]=='m'){
+                //printf("--------------------\n\n");
+            for (int i = 0; i < tokens_size; i++) {	
+                if(!strcmp("Major", tokens[i].string))
+                    printf("Major: %s\n", tokens[i+1].string);
+            }
+            //printf("\n--------------------\n\n");
+        }
+        if(option[j]=='r'){
+                //printf("--------------------\n\n");
+            for (int i = 0; i < tokens_size; i++) {	
+                if(!strcmp("RC", tokens[i].string))
+                    printf("RC: %s\n", tokens[i+1].string);
+            }
+            printf("\n--------------------\n\n");
+        }
+    }
 }
-
-void OptionID(int tokens_size, TOKEN * tokens, char* idnumber) {
-
+int OptionID(int tokens_size, TOKEN * tokens, char* idnumber) {
+	int counter = 0;
 	for (int i = 0; i < tokens_size; i++) {
 		if (!strncmp(idnumber, tokens[i].string,8) && strlen(tokens[i].string)==8 ) {
-			OptionPrint(tokens_size, tokens);
+			OptionPrintS(tokens_size, tokens);
+			counter++;
 		}
 	}
+	if(counter==0)
+		return 0;
+	else
+	{
+		return 1;
+	}
+	
 }
 
 int main(int argc, char** argv) {
@@ -407,7 +442,7 @@ int main(int argc, char** argv) {
 	while (1) {
 		printf("**********APPLICATION**********\n\nWelcome to data management application\nChoose what you want to do\n\n");
 		printf("\n -p : print token");
-		printf("\n -s : search information");
+		printf("\n -s : list selected data");
 		printf("\n -i : search information using student_ID");
 		printf("\n -q : termination");
 		printf("\n*******************************\n");
@@ -424,15 +459,6 @@ int main(int argc, char** argv) {
 				}
 
 				buffer = FREAD(file, &file_size);
-				/*
-				printf("%s", buffer);
-				printf("\n\n --Done-- \n\n");
-				lower_string(buffer);
-
-				printf("%s", buffer);
-				printf("\n\n --Small case Done-- \n\n");
-				printf("--Tokens-- \n\n");
-				*/
 				JSON_parse(buffer, file_size, &tokens_size, tokens);
 
 				Find_TokenSize(buffer, tokens_size, tokens);
@@ -453,6 +479,7 @@ int main(int argc, char** argv) {
 
 		case 'i':
 		{
+			int counter = 0,checker = 0;
 			char* idnumber = malloc(sizeof(char) * 20);
 			printf("\n\n Enter student ID : ");
 			scanf("%s", idnumber);
@@ -464,24 +491,16 @@ int main(int argc, char** argv) {
 				}
 
 				buffer = FREAD(file, &file_size);
-				/*
-				printf("%s", buffer);
-				printf("\n\n --Done-- \n\n");
-				lower_string(buffer);
-
-				printf("%s", buffer);
-				printf("\n\n --Small case Done-- \n\n");
-				printf("--Tokens-- \n\n");
-				*/
 				JSON_parse(buffer, file_size, &tokens_size, tokens);
 
 				Find_TokenSize(buffer, tokens_size, tokens);
-				OptionID(tokens_size, tokens, idnumber);
-
+				checker = OptionID(tokens_size, tokens, idnumber);
+				counter= counter + checker;
 				free_tokens(tokens, tokens_size);
 				free(buffer);
 			}
-
+			if(counter==0)
+			{printf("\n    %s Not Found\n", idnumber);}
 			free(idnumber);
 		}
 		break;
@@ -491,5 +510,8 @@ int main(int argc, char** argv) {
 			return EXIT_SUCCESS;
 		}
 		}
-	}
+	
+	printf("\n Press Enter to continue. \n");
+	while (getchar() != '\r' && getchar() != '\n');
+}
 }
