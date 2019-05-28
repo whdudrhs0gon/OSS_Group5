@@ -437,13 +437,13 @@ int main(int argc, char** argv) {
 	int tokens_size = 0;
 	char* file = "";
 	TOKEN tokens[1024];
-
 	char option;
 	while (1) {
 		printf("**********APPLICATION**********\n\nWelcome to data management application\nChoose what you want to do\n\n");
 		printf("\n -p : print token");
 		printf("\n -s : list selected data");
 		printf("\n -i : search information using student_ID");
+		printf("\n -n : show number of students");
 		printf("\n -q : termination");
 		printf("\n*******************************\n");
 		printf("\t\t-->");
@@ -502,6 +502,12 @@ int main(int argc, char** argv) {
 			if(counter==0)
 			{printf("\n    %s Not Found\n", idnumber);}
 			free(idnumber);
+		}
+		break;
+
+		case 'n':
+		{
+			printf("\n There are total %d students in the data.\n",argc-1);
 		}
 		break;
 
