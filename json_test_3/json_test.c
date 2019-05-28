@@ -340,10 +340,7 @@ void OptionPrintS(int tokens_size, TOKEN * tokens) {
 	}
 }
 
-void OptionSearch(int tokens_size, TOKEN *tokens){
-	char option[7];
-	char search[1024];
-    int i=0;
+void selectOption(char* option, int* option_index) {
 	printf("\n\nChoose what information to search(to stop enter zero)");
 	printf("\n\t -f : first name");
 	printf("\n\t -l : last name");
@@ -352,18 +349,24 @@ void OptionSearch(int tokens_size, TOKEN *tokens){
 	printf("\n\t -m : major");
 	printf("\n\t -r : RC");
 	printf("\n\t\t-->");
-    while(1){
-	    scanf(" %c", &option[i]);
-        if(option[i]=='f'||option[i]=='l'||option[i]=='i'||option[i]=='a'||option[i]=='m'||option[i]=='r'){
-            i++;
-        }
-        else 
-            break;
-    }
 
-	//printf("\n\nEnter information to search");
-	//scanf("%s", search);
-    for(int j=0; j<i; j++){
+	int index = *option_index;
+	while (1) {
+		char op;
+		scanf(" %c", &op);
+		if (op == 'f' || op == 'l' || op == 'i' || op == 'a' || op == 'm' || op == 'r') {
+			option[index] = op;
+			index++;
+		}
+		else
+			break;
+	}
+	*option_index = index;
+}
+
+void OptionSearch(int tokens_size, TOKEN *tokens, char* option, int option_index){
+	
+    for(int j=0; j<option_index; j++){
         if(option[j]=='f'){
                 //printf("--------------------\n\n");
             for (int i = 0; i < tokens_size; i++) {	
@@ -414,6 +417,8 @@ void OptionSearch(int tokens_size, TOKEN *tokens){
         }
     }
 }
+
+
 int OptionID(int tokens_size, TOKEN * tokens, char* idnumber) {
 	int counter = 0;
 	for (int i = 0; i < tokens_size; i++) {
@@ -473,7 +478,28 @@ int main(int argc, char** argv) {
 
 		case 's':
 		{
-			OptionSearch(tokens_size, tokens);
+			char option2[128] = { '\0' };
+			int option_index = 0;
+
+			selectOption(option2, &option_index);
+
+			for (int filenumber = 1; filenumber < argc; filenumber++)
+			{
+				if (argc >= 1) {
+					file = argv[filenumber];
+				}
+
+				buffer = FREAD(file, &file_size);
+				JSON_parse(buffer, file_size, &tokens_size, tokens);
+
+				Find_TokenSize(buffer, tokens_size, tokens);
+				OptionSearch(tokens_size, tokens, option2, option_index);
+
+				free_tokens(tokens, tokens_size);
+				printf("\n");
+				free(buffer);
+			}
+			option_index = 0;
 		}
 		break;
 
