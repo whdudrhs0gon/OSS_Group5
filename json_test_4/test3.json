@@ -1,0 +1,26 @@
+{
+    "BASIC COFFEE":
+    [
+        {"name": "CAFE TEA", 
+         "price": 5.50
+        },
+        {"name": "CAPPUCCINO", 
+            "price": 6.50
+        },
+        {"name": "ESPRESSO", 
+        "price": 6.75
+        }
+    ],
+    "LATTE":
+    [
+        {"name": "CAFE LATTE", 
+         "price": 6.50
+        },
+        {"name": "VANILLA BEAN LATTE", 
+            "price": 7.25
+        },
+        {"name": "ACAI", 
+        "price": 7.50
+        }
+    ]
+}
