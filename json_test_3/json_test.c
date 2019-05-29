@@ -167,13 +167,19 @@ void JSON_parse(char* buffer, long file_size, int* token_size, TOKEN * tokens) {
 			char* begin = buffer + i;
 			tokens[tokenIndex].start = begin - buffer;
 			char* end = strchr(begin, ',');
+			
+			if (end == NULL) {
+				end = strchr(begin, '}');
+				if (end == NULL) end = strchr(begin, ']');
+			}
+
 			tokens[tokenIndex].end = end - buffer;
 			int stringLength = end - begin;
 
 			tokens[tokenIndex].type = PRIMITIVE;
 			tokens[tokenIndex].string = (char*)malloc(stringLength);
 			memset(tokens[tokenIndex].string, 0, stringLength + 1);
-			memcpy(tokens[tokenIndex].string, begin, stringLength);
+			memcpy(tokens[tokenIndex].string, begin, stringLength-1);
 			tokenIndex++;
 			*token_size = tokenIndex;
 			i = i + stringLength + 1;
