@@ -456,6 +456,19 @@ int OptionID(int tokens_size, TOKEN * tokens, char* idnumber) {
 	
 }
 
+void help(){
+	printf("***HELP****\n");
+	printf("   option 'p': Will print token\n");
+	printf("   option 's': Select the desired information of the entire student\n");
+	printf("		   -> Print the desired information the entire student\n");
+	printf("   option 'i': Entering a student number\n");
+	printf("		   -> Will print all the information of that student\n");
+	printf("   option 'n': Print the total number of students\n");
+	printf("   option 'h': Explanation of how to use this application\n");
+	printf("   option 'q': Exit this application\n");
+}
+
+
 int main(int argc, char** argv) {
 	char* buffer = "";
 	long file_size;
@@ -469,6 +482,7 @@ int main(int argc, char** argv) {
 		printf("\n -s : list selected data");
 		printf("\n -i : search information using student_ID");
 		printf("\n -n : show number of students");
+		printf("\n -h : help");
 		printf("\n -q : termination");
 		printf("\n*******************************\n");
 		printf("\t\t-->");
@@ -556,6 +570,10 @@ int main(int argc, char** argv) {
 			printf("\n There are total %d students in the data.\n",argc-1);
 		}
 		break;
+
+		case 'h':
+			help();
+			break;
 
 		case 'q':
 		{
