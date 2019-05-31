@@ -4,4 +4,4 @@
 ### 
 ## Why is this project useful?
 ## How do I get stared?
-## When can I get more help, if I nedd it?
+## When can I get more help, if I ned it?
