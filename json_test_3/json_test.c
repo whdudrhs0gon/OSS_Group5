@@ -560,8 +560,8 @@ int main(int argc, char** argv) {
 		case 'q':
 		{
 			printf("**********APPLICATION**********\n\n");
-			printf("\t Thank you for Using Our Program XD\n");
-			printf("\t Have a nice day! Bye~\n");
+			printf(" Thank you for Using Our Program XD\n");
+			printf(" Have a nice day! Bye~\n");
 			printf("\n*******************************\n");
 			return EXIT_SUCCESS;
 		}
