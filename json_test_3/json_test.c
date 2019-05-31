@@ -559,7 +559,7 @@ int main(int argc, char** argv) {
 
 		case 'q':
 		{
-			printf("\n\n Thank you for Using Our Program XD\n");
+			printf("\n\n Thanks for Using Our Program XD\n");
 			printf(" Have a nice day! Bye~\n");
 			printf("\n*******************************\n");
 			return EXIT_SUCCESS;
