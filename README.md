@@ -1,5 +1,4 @@
  # OSS_Group5 Project
- ====================
 
 ## What does this project do?
 ### The project is to create an application that helps students get information easily.
@@ -8,9 +7,10 @@
 ### It is very useful because I can get all the information of many students and only the information that I want from this project.
 
 ## How do I get stared?
+### First, Compile
 ### > gcc -o test getStudentInfo.c
 ### > ./test ../student_info/*.json
-### ** If you want to add students, you can go to the study_info folder and add json files to fit the format. **
+### _If you want to add students, you can go to the study_info folder and add json files to fit the format._
 ###  json file that has already been created for format.
 
 ## When can I get more help, if I need it?
