@@ -7,8 +7,8 @@
 ### It is very useful because I can get all the information of many students and only the information that I want from this project.
 
 ## How do I get stared?
-### >gcc -o test getStudentInfo.c
-### >./test ../student_info/*.json
+### > gcc -o test getStudentInfo.c
+### > ./test ../student_info/*.json
 ### _If you want to add students, you can go to the study_info folder and add json files to fit the format._
 ### > json file that has already been created for format.
 
