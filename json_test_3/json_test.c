@@ -92,9 +92,31 @@ void JSON_parse(char* buffer, long file_size, int* token_size, TOKEN * tokens) {
 		{
 			char* begin = buffer + i;
 			tokens[tokenIndex].start = begin - buffer;
+
+			/*
 			char* end = strchr(begin, ']');
 			tokens[tokenIndex].end = end - buffer + 1;
 			int stringLength = end - begin + 1;
+			*/
+
+			int test = 0;
+			char* end = begin;                            /////////////////////////////////////
+
+			for (int j = i + 1; j < file_size; j++) {
+				if (buffer[j] == '[') test++;
+				if (buffer[j] == ']') test--;
+
+				if (test <= -1) {
+					end = &buffer[j];
+					test = 0;
+					break;
+				}
+			}
+
+
+			tokens[tokenIndex].end = end - buffer + 1;
+			int stringLength = end - begin + 1;
+
 
 			tokens[tokenIndex].type = ARRAY;
 			tokens[tokenIndex].string = (char*)malloc(stringLength + 1);
@@ -251,10 +273,13 @@ void Find_TokenSize(char* buffer, int tokens_size, TOKEN * tokens) {
 		{
 			int end = tokens[i].end;
 			int temp_size = 0;
+			int index = 0;
+			int array_size = 0;
+			int count = 0;
 
 			while (1) {
 				int start = tokens[++i].start;
-
+								
 				if (i >= tokens_size) {
 					break;
 				}
@@ -270,15 +295,29 @@ void Find_TokenSize(char* buffer, int tokens_size, TOKEN * tokens) {
 					}
 					i = i - 1;
 				}
-
+				
 				if (start > end || i >= tokens_size) {
 					break;
 				}
+
+				if (tokens[i].type == ARRAY && count == 0) {
+					count++;
+					index = i;
+					int start2 = tokens[index].end;
+					while (start2 > tokens[index].start) {
+						if (tokens[index].type != ARRAY) array_size++;
+						index++;
+					}
+					index = 0;
+				}
+
 				size++;
 			}
-			i = i - temp_size - size - 1;
-			tokens[i].size = size;
+			i = i - temp_size - size -1;			
+			tokens[i].size = size - array_size;
+			count = 0;
 			size = 0;
+			array_size = 0;
 		}
 		break;
 
