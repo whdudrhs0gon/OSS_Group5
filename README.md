@@ -1,6 +1,7 @@
  # OSS_Group5 Project
  
 ## => "final" folder has final code.
+## => final/json_parse/json_parser : the final version of the parser.
 
 
 ## What does this project do?
