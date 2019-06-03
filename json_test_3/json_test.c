@@ -366,13 +366,25 @@ void Find_TokenSize(char* buffer, int tokens_size, TOKEN * tokens) {
 }
 void OptionPrint(int tokens_size, TOKEN *tokens){
 	for (int i = 0; i < tokens_size; i++) {
-		printf("[%d] %s (size=%d, %d~%d, %s)\n",i+1, tokens[i].string, tokens[i].size, tokens[i].start, tokens[i].end, type[tokens[i].type]);
-	}
+        char* str = tokens[i].string;
+        for(int a = 0; a < tokens[i].end - tokens[i].start; a++)
+		{
+		if (str[a]>='A' && str[a]<='Z' && a==0)
+		{	str[a] = str[a] + 32;}
+
+		if (str[a]>='a' && str[a]<='z' && a!=0 && str[a-1]==' ')
+		{	str[a] = str[a] - 32;}
+
+		if (str[0]>='a' && str[0]<='z')
+		{	str[0] = str[0] - 32;}
+		}
+
+    	printf("[%d] %s (size=%d, %d~%d, %s)\n",i+1, tokens[i].string, tokens[i].size, tokens[i].start, tokens[i].end, type[tokens[i].type]);
+    }
 }
 
 void OptionPrintS(int tokens_size, TOKEN * tokens) {
 	for (int i = 0; i < tokens_size; i++) {
-		//printf("%s (size=%d, %d~%d, %s)\n", tokens[i].string, tokens[i].size, tokens[i].start, tokens[i].end, type[tokens[i].type]);
 		char* str = tokens[i].string;
 		for(int a = 0; a < tokens[i].end - tokens[i].start; a++)
 		{
@@ -537,6 +549,7 @@ int main(int argc, char** argv) {
 				}
 
 				buffer = FREAD(file, &file_size);
+				lower_string(buffer);
 				JSON_parse(buffer, file_size, &tokens_size, tokens);
 
 				Find_TokenSize(buffer, tokens_size, tokens);
@@ -563,6 +576,7 @@ int main(int argc, char** argv) {
 				}
 
 				buffer = FREAD(file, &file_size);
+				
 				JSON_parse(buffer, file_size, &tokens_size, tokens);
 
 				Find_TokenSize(buffer, tokens_size, tokens);
@@ -590,6 +604,7 @@ int main(int argc, char** argv) {
 				}
 
 				buffer = FREAD(file, &file_size);
+				lower_string(buffer);
 				JSON_parse(buffer, file_size, &tokens_size, tokens);
 
 				Find_TokenSize(buffer, tokens_size, tokens);
