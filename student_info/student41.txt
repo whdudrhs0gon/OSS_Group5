@@ -1,0 +1,8 @@
+{
+  "First name": "WONPYO",
+  "Last name": "hong",
+  "Student_ID": 21701065,
+  "Age": 27,
+  "Major": "electronic Computer Engineering",
+  "RC": "Bethel"
+}
