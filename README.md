@@ -1,6 +1,7 @@
  # OSS_Group5 Project
  
-## "final" folder has final code.
+## => "final" folder has final code.
+
 
 ## What does this project do?
 ### The project is to create an application that helps students get information easily.
